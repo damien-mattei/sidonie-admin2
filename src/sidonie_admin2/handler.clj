@@ -4,6 +4,8 @@
 ;; compile and create war :
 ;; lein ring uberwar
 
+;; mv sidonie-admin2-0.1.0-SNAPSHOT-standalone.war sidonie-admin.war
+
 (ns sidonie-admin2.handler
 
   (:use compojure.core)
@@ -41,13 +43,13 @@
   (println name)
   
   (when (or (and (= name "bonneau")
-                 (= pass "voir fichier hors repository"))
+                 (= pass "b0nne@u71"))
             
             (and (= name "thorel")
-                 (= pass "voir fichier hors repository"))
+                 (= pass "th0rel70"))
             
             (and (= name "mattei")
-                 (= pass "voir fichier hors repository")))
+                 (= pass "m@ttei68")))
 
     ;;(set! user-remote-browser name)
     ;;(defn user-remote-browser name)
