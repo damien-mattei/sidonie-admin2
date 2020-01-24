@@ -204,9 +204,9 @@
   " a function upcasing the first x characters of a string"
   [ s x ]
   (if (>= x (count s))
-      (clojure.string/upper-case str)
-      (str (clojure.string/upper-case (subs str 0 x))
-           (subs str x))))
+      (clojure.string/upper-case s)
+      (str (clojure.string/upper-case (subs s 0 x))
+           (subs s x))))
 
 
 
