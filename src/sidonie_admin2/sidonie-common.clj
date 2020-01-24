@@ -17,7 +17,7 @@
            ;;:user "mattei"
            :user "sidonie"
            ;;:password "sidonie2"
-           :password "voir fichier hors repository"
+           :password "$1dOni3"
            }))
 
 
@@ -70,6 +70,9 @@
 ;; (+ x (* 5 8))
 ;; eu.oca.jclojure=> (eval (infix '(x + 5 * 8)))
 ;; 42
+
+
+;; right ascension
 ;;
 ;; eu.oca.jclojure=> (hh-mmDOTm2hhmmm 18 57.5)
 ;; 18575.0
@@ -106,18 +109,34 @@
     hhmmm))
 
 
+(defn signum [n]
+  (if (< n 0)
+    -1
+    1))
+
+
+
+;; declinaison
 
 (defn dd-mm2ddmm [dd mm]
 
-   (let [ddmm (infix
+  (let [ddmm
+        ;; (infix
 
-               dd * 100.0 + mm
+        ;;  dd * 100.0 + mm
                
-               )]
+        ;;  )
+
+        (+ (* dd 100.0) (* (signum dd) mm))
+         
+         ]
      
      (print "jclojure.clj : dd-mm2ddmm   : ddmm = ")
      (println ddmm)
      ddmm))
+
+
+
 
 
 (defn =1?  [n]  (= 1 n))
@@ -181,6 +200,15 @@
 
 
 
+(defn string-set-lower-case-ending
+  " a function upcasing the first x characters of a string"
+  [ s x ]
+  (if (>= x (count s))
+      (clojure.string/upper-case str)
+      (str (clojure.string/upper-case (subs str 0 x))
+           (subs str x))))
+
+
 
 (defn UpdateDBResourceClojure
 
@@ -214,7 +242,7 @@
           Delta_2000  (dd-mm2ddmm   (Double/parseDouble  Delta_2000_dd)
                                     (Double/parseDouble  Delta_2000_mm))
 
-          
+          NomUpperCaseFirst7Char (string-set-lower-case-ending Nom 7)
 
           string-to-display (cond
                               
@@ -243,7 +271,7 @@
                                  (println (type No_FicheInteger))
                                  
                                  ;; return the number of updated records in the database
-                                 (updateObject Nom
+                                 (updateObject NomUpperCaseFirst7Char
                                                No_FicheInteger
                                                Alpha_2000
                                                Delta_2000
