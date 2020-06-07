@@ -4,7 +4,9 @@
 ;; compile and create war :
 ;; lein ring uberwar
 
+;; cd target
 ;; mv sidonie-admin2-0.1.0-SNAPSHOT-standalone.war sidonie-admin.war
+;; scp sidonie-admin.war sidonie.oca.eu:
 
 (ns sidonie-admin2.handler
 
@@ -35,6 +37,7 @@
 
 ;;(load-file "src/sidonie_admin2/sidonie-common.clj")
 (load "sidonie-common")
+(load "sidonie-measures")
 
 ;; nom utilisateur et mot de passe perso
 ;; log des connexion
@@ -58,19 +61,45 @@
     (println (str "handler.clj : authenticated? : authenticated user with good password: " name))
     true))
 
-;;(defroutes protected-routes
-  
+
+
+;;(def root (str (System/getProperty "user.dir") "/public"))
+
 (defroutes public-routes
-  (GET "/" [] "You are on the site of the Sidonie Database modification.You will need authentification access to modify data.")
- ;; (POST "/test" {params :params} 
- ;;       (str "POST params=" params))
+  ;;(GET "/" [] "You are on the site of the Sidonie Database modification.You will need authentification access to modify data.")
+
+  (GET "/" [] "Hello World")
+  ;;(route/files "/" (do (println root) {:root root}))
+  (route/resources "/")
+
+  ;; params={:people {"1" {:first_name "toto", :last_name "tutu", :email "toto@tutu"}, "2" {:first_name "titi", :last_name "tutu", :email "titi@tutu"}}}
+  (POST "/test" {params :params} 
+        (str "POST params=" params))
   
   )
 
 (defroutes protected-routes
+  
   ;;(GET "/index.html" [] "Hello World")
+  
   (POST "/UpdateDB" {params :params} 
         (WrapperUpdateDBResourceClojure params))
+
+  (POST "/DeleteMeasure" {params :params} 
+        (DeleteMeasure params))
+
+  (POST "/ConfirmDeleteMeasure" {params :params} 
+        (ConfirmDeleteMeasure params))
+
+  (POST "/AddMeasure" {params :params} 
+        (AddMeasure params))
+
+  (POST "/ModifyMeasure" {params :params} 
+        (ModifyMeasure params))
+
+  (GET "/GET-Read-Measures-Object" {params :params} 
+        (read-modify-measures params))
+  
   )
 
 
