@@ -45,14 +45,14 @@
   (print "handler.clj : authenticated? : name = ")
   (println name)
   
-  (when (or (and (= name "bonneau")
-                 (= pass "b0nne@u71"))
+  (when (or (and (= name "")
+                 (= pass ""))
             
-            (and (= name "thorel")
-                 (= pass "th0rel70"))
+            (and (= name "")
+                 (= pass ""))
             
-            (and (= name "mattei")
-                 (= pass "m@ttei68")))
+            (and (= name "")
+                 (= pass "")))
 
     ;;(set! user-remote-browser name)
     ;;(defn user-remote-browser name)
